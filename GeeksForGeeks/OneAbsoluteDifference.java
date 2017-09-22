@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 /**
- * 
+ * tutorial link : http://laymansalgo.blogspot.in/2017/09/geeksforgeeks-tutorial-numbers-with-one.html
  * @author Gaurav
  */
 import java.util.*;
