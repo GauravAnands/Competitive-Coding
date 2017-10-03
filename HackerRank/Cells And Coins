@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <algorithm>
+
+int n, i, ans, total_case, k;
+int a[1000];
+
+int main() {
+  scanf("%d",&total_case);
+  while (total_case--) {
+    scanf("%d %d",&n,&k);
+    for (i=1;i<=n;i++) scanf("%d",a+i);
+    std::sort(a+1,a+n+1);
+    a[0] = ans = 0;
+    for (i=n;i>=1;i--) ans += (a[i]-a[i-1]-1)*((n-i)/k+1);
+    printf("%d\n",ans);
+  }
+  return 0;
+}
