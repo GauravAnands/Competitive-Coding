@@ -1,0 +1,23 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int start = sc.nextInt();
+        int last = sc.nextInt() + 1;
+        String g = "0";
+        String s = "0";
+        for (int i = 0; i < Math.log(last)/Math.log(2); i++){
+            s = s.replace('0', '2').replace('1', '0').replace('2', '1');
+           g += s;
+            s = g;
+            
+        }
+        //System.out.println(g);
+        g = g.substring(start,last).replaceAll("0","");
+        System.out.println(g.length());
+    }
+}
