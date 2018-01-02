@@ -38,7 +38,8 @@ public class SubhamAndXor
         out.println(map.size());
         out.close();
     }
-    
+  /************* code ends here     *****************/
+ 
     public static void main(String[] args)
     {
         new Thread(null ,new Runnable(){
