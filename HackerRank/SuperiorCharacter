@@ -1,0 +1,90 @@
+import java.io.*;
+import java.math.*;             // for min- max opeartion
+import java.text.*;
+import java.util.*;             // for Scanner Class
+import java.util.regex.*;
+
+/* 
+   @author Gaurav Anand
+*/
+
+/**************** Solution starts here  ************/
+
+public class Solution {
+    static long maximumSuperiorCharacters(int[] freq) {
+        long total = 0;
+        int[] arr = new int[26];        // a replica of input array, in case needed.
+        int k = 0;
+        for(int i: freq){
+            arr[k++] = i;
+            total = total + i;
+        }
+        total--;                        // first character if fixed to the left, better ignore for simplicity
+        freq[0]--;
+        
+        long temp = 0;
+  
+        int start = 0;                  // starting point of iteration (from start)
+        int end = freq.length -1;       // starting point of iteration (from end)
+        
+        // Now we start adding numbers to temp1 in such a way that left and right sum is balanced.
+           
+        long temp1 = 0;                 // variable to hold sum
+        
+        
+        while(end-start >= 1){          // loop continue until "start" and "end" converge
+            
+            long just = Math.min(freq[start], freq[end]);         // ensures equal division of numbers into left and right sum
+            freq[start] -= just;
+            freq[end] -= just;
+            if(freq[start] == 0)
+                start++;
+            if(freq[end] == 0)
+                end--;
+            temp1 += just;              // hold right or left sum. Note both are equal
+            temp += 2*just;             // hold total sum (ie. right sum + left sum)
+       }
+        
+        long sth = total - temp;        // number which was not added, because its addition created imbalance
+      
+        // Main concept
+        /**************************************************************/
+        /**/  sth = Math.min(( temp/2 - (arr[end]-sth)), sth/2);    /**/
+        /**/  temp1 += sth;                                         /**/
+        /**************************************************************/
+        
+       return temp1;
+ }
+    
+/************************   Solution ends Here     ***************************/
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            int[] freq = new int[26];
+
+            String[] freqItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int freqItr = 0; freqItr < 26; freqItr++) {
+                int freqItem = Integer.parseInt(freqItems[freqItr]);
+                freq[freqItr] = freqItem;
+            }
+
+            long result = maximumSuperiorCharacters(freq);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
